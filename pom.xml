@@ -44,11 +44,6 @@
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.jakewharton</groupId>
-			<artifactId>pingdom-java</artifactId>
-			<version>0.9.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

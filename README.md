@@ -6,9 +6,6 @@ To run the server you will need the following `java environment` variables set:
 --clientId
 --clientSecret
 --refreshToken
---PINGDOM_USERNAME
---PINGDOM_PASSWORD
---PINGDOM_API_KEY
 ```
 
 You can create the client id and client secret using the [Google developer

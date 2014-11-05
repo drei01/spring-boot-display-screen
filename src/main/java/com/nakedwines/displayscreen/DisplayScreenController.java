@@ -2,10 +2,8 @@ package com.nakedwines.displayscreen;
 
 import java.net.URI;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.jakewharton.pingdom.ServiceManager;
-import com.jakewharton.pingdom.entities.Check;
 
 @RestController
 public class DisplayScreenController {
@@ -38,8 +30,6 @@ public class DisplayScreenController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-	@Autowired
-	private ServiceManager pingdomService;
 	
 	@RequestMapping("/realtime")
 	public Map<String,Object> realtime(WebRequest request, HttpServletResponse response){
@@ -50,11 +40,6 @@ public class DisplayScreenController {
 	@RequestMapping("/data")
 	public Map<String,Object> data(WebRequest request, HttpServletResponse response){
 		return getGaData(request, "https://www.googleapis.com/analytics/v3/data/ga");
-	}
-	
-	@RequestMapping("/alerts")
-	public List<Check> alerts(@RequestParam int limit){
-		return pingdomService.checkService().list().limit(limit).fire();
 	}
 	
 	@RequestMapping("/feed")
