@@ -1,5 +1,7 @@
 # Display Dashboard
 
+![Data Screen](https://s3-eu-west-1.amazonaws.com/nw-test-images/data-screen.png)
+
 To run the server you will need the following `java environment` variables set:
 
 ```
