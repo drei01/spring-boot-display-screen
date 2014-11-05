@@ -2,6 +2,7 @@ package com.nakedwines.displayscreen;
 
 import java.net.URI;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,14 @@ import org.springframework.social.support.URIBuilder;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jakewharton.pingdom.ServiceManager;
+import com.jakewharton.pingdom.entities.Check;
 
 @RestController
 public class DisplayScreenController {
@@ -34,15 +38,35 @@ public class DisplayScreenController {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private ServiceManager pingdomService;
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/realtime")
 	public Map<String,Object> realtime(WebRequest request, HttpServletResponse response){
 		response.addHeader("cache-control", "public, max-age=20");
-		
+		return getGaData(request, "https://www.googleapis.com/analytics/v3/data/realtime");
+	}
+	
+	@RequestMapping("/data")
+	public Map<String,Object> data(WebRequest request, HttpServletResponse response){
+		return getGaData(request, "https://www.googleapis.com/analytics/v3/data/ga");
+	}
+	
+	@RequestMapping("/alerts")
+	public List<Check> alerts(@RequestParam int limit){
+		return pingdomService.checkService().list().limit(limit).fire();
+	}
+	
+	@RequestMapping("/feed")
+	public Map<String,Object> feed(){
+		return Collections.emptyMap();
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> getGaData(WebRequest request, String uri) {		
 		String accessToken = getToken();
 		
-		URIBuilder uriBuilder = URIBuilder.fromUri("https://www.googleapis.com/analytics/v3/data/realtime");
+		URIBuilder uriBuilder = URIBuilder.fromUri(uri);
 		uriBuilder.queryParam("access_token", accessToken);
 		
 		for(String key : request.getParameterMap().keySet()){
@@ -51,17 +75,12 @@ public class DisplayScreenController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + accessToken);
-
+	
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 		
 		return restTemplate.exchange(uriBuilder.build(), HttpMethod.GET, entity, Map.class).getBody();
 	}
-	
-	@RequestMapping("/feed")
-	public Map<String,Object> feed(){
-		return Collections.emptyMap();
-	}
-	
+
 	private String getToken(){
 		MultiValueMap<String, Object> request = new LinkedMultiValueMap<String, Object>();
 		request.add("client_id", clientId);

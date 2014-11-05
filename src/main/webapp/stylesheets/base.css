@@ -8,8 +8,8 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  font-family: nta, helvetica;
-  font-weight: bold;
+  font-family: 'Open Sans', helvetica;
+  font-weight: 300;
   font-size: 20px;
   line-height: 1;
   padding: 0;
@@ -34,7 +34,7 @@ body {
     .top-bar .inner img {
       position: relative;
       top: -2px;
-      width: 35px;
+      width: auto;
       height: 31px;
       padding-right: 6px;
       float: left;
