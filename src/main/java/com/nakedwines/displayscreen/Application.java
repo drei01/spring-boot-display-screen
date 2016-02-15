@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-public class DisplayScreen extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer{
 	
 	@Bean
 	public RestTemplate restTemplate(){
@@ -21,10 +21,10 @@ public class DisplayScreen extends SpringBootServletInitializer{
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(DisplayScreen.class);
+		return application.sources(Application.class);
 	}
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(DisplayScreen.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

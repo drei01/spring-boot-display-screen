@@ -11,7 +11,7 @@
     nextRefresh: 0,
 
     endpoint: function(profileId){
-      return "/realtime?"
+      return "/google/realtime?"
         + "ids=ga:"+ profileId +"&"
         + "metrics=ga:activeVisitors";
     },

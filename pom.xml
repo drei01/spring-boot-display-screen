@@ -44,6 +44,11 @@
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.10.52</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

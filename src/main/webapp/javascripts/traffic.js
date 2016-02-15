@@ -8,7 +8,7 @@
     points: 720,
 
     endpoint: function(profileId){
-	    return "/data?"
+	    return "/google/data?"
 	      + "ids=ga:"+ profileId +"&"
 	      + "metrics=ga:sessions&"
 	      + "start-date=yesterday&"

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 
-@RestController
-public class DisplayScreenController {
+@RestController(value="/google")
+public class GoogleDataController {
 	@Value("${clientId}")
 	private String clientId;
 	@Value("${clientSecret}")
